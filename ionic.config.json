@@ -1,0 +1,8 @@
+{
+  "name": "Sushi Master Stock",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "d7f8b0a9"
+}
