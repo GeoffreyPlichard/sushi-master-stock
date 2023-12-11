@@ -1,83 +1,83 @@
 import { Injectable } from '@angular/core';
 
-export interface Message {
-  fromName: string;
-  subject: string;
-  date: string;
+export interface Supplier {
   id: number;
-  read: boolean;
+  name: string;
+  type: string;
+  tel: string;
+  email: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public messages: Message[] = [
+  public suppliers: Supplier[] = [
     {
-      fromName: 'Matt Chorsey',
-      subject: 'New event: Trip to Vegas',
-      date: '9:32 AM',
       id: 0,
-      read: false
+      name: 'LX France',
+      type: 'Epicerie',
+      tel: '0',
+      email: ''
     },
     {
-      fromName: 'Lauren Ruthford',
-      subject: 'Long time no chat',
-      date: '6:12 AM',
       id: 1,
-      read: false
+      name: 'Foodex Surgelés',
+      type: 'Surgelés',
+      tel: '0',
+      email: ''
     },
     {
-      fromName: 'Jordan Firth',
-      subject: 'Report Results',
-      date: '4:55 AM',
       id: 2,
-      read: false
+      name: 'Foodex Epicerie',
+      type: 'Epicerie',
+      tel: '0',
+      email: ''
     },
     {
-      fromName: 'Bill Thomas',
-      subject: 'The situation',
-      date: 'Yesterday',
       id: 3,
-      read: false
+      name: 'AGIS',
+      type: 'Sauces / Nems',
+      tel: '0',
+      email: 'commande.tarare@agis-sa.fr'
     },
     {
-      fromName: 'Joanne Pollan',
-      subject: 'Updated invitation: Swim lessons',
-      date: 'Yesterday',
       id: 4,
-      read: false
+      name: 'AGF',
+      type: 'Surgelés / Viandes',
+      tel: '01 56 20 19 04',
+      email: 'commande@asiageneralfood.com'
     },
     {
-      fromName: 'Andrea Cornerston',
-      subject: 'Last minute ask',
-      date: 'Yesterday',
       id: 5,
-      read: false
+      name: 'UNIMEX',
+      type: 'Barquettes / Etiquettes',
+      tel: '0',
+      email: ''
     },
     {
-      fromName: 'Moe Chamont',
-      subject: 'Family Calendar - Version 1',
-      date: 'Last Week',
       id: 6,
-      read: false
+      name: 'TTF',
+      type: 'Epicerie',
+      tel: '0',
+      email: ''
     },
     {
-      fromName: 'Kelly Richardson',
-      subject: 'Placeholder Headhots',
-      date: 'Last Week',
       id: 7,
-      read: false
+      name: 'Rochex',
+      type: 'Hygiène',
+      tel: '0',
+      email: ''
     }
   ];
 
   constructor() { }
 
-  public getMessages(): Message[] {
-    return this.messages;
+  public getSuppliers(): Supplier[] {
+    return this.suppliers;
   }
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+  public getSupplierById(id: number): Supplier {
+    return this.suppliers[id];
   }
 }

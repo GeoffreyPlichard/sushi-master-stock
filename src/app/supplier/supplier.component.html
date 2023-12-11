@@ -1,0 +1,16 @@
+<ion-item *ngIf="supplier" [routerLink]="'/supplier/' + supplier.id" [detail]="false">
+  <div slot="start" [class]="!supplier.tel ? 'dot dot-unread' : 'dot'"></div>
+  <ion-label class="ion-text-wrap">
+    <h2>
+      {{ supplier.name }}
+      <span class="date">
+        <ion-note>{{ supplier.tel }}</ion-note>
+        <ion-icon aria-hidden="true" name="chevron-forward" size="small" *ngIf="isIos()"></ion-icon>
+      </span>
+    </h2>
+    <h3>{{ supplier.type }}</h3>
+    <p>
+      {{ supplier.email }}
+    </p>
+  </ion-label>
+  </ion-item>
