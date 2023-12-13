@@ -6,13 +6,15 @@ import { ViewSupplierPage } from './view-supplier.page';
 import { IonicModule } from '@ionic/angular';
 
 import { ViewSupplierPageRoutingModule } from './view-supplier-routing.module';
+import { SupplyComponentModule } from '../supply/supply.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewSupplierPageRoutingModule
+    ViewSupplierPageRoutingModule,
+    SupplyComponentModule
   ],
   declarations: [ViewSupplierPage]
 })

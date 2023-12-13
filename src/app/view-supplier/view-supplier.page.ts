@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonicModule, Platform } from '@ionic/angular';
-import { DataService, Supplier } from '../services/data.service';
+import { Platform } from '@ionic/angular';
+import { DataService, Supplier, Supply } from '../services/data.service';
 
 @Component({
   selector: 'app-view-supplier',
@@ -26,4 +25,13 @@ export class ViewSupplierPage implements OnInit {
     const isIos = this.platform.is('ios')
     return isIos ? 'Inbox' : '';
   }
+
+  getSupplies(): Supply[] {
+    return this.data.getSuppliesBySupplier(this.supplier.id);
+  }
+
+  getOrdersNb() {
+    return this.data.getOrders().length;
+  }
+  
 }

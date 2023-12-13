@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./view-supplier/view-supplier.module').then( m => m.ViewSupplierPageModule)
   },
   {
+    path: 'order',
+    loadChildren: () => import('./order/order.module').then( m => m.OrderPageModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

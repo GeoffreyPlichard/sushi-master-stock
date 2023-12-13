@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button [text]="getBackButtonText()" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      Liste commande
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <div class="ion-padding">
+      <ul>
+        <li *ngFor="let order of getOrders()">
+            <strong>{{getSupplierById(order.supplierId).name}}: </strong>{{order.name}}
+        </li>
+      </ul>
+    </div>
+  </ion-content>
+  

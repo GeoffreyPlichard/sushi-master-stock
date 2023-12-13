@@ -22,4 +22,8 @@ export class HomePage {
   getSuppliers(): Supplier[] {
     return this.data.getSuppliers();
   }
+
+  getOrdersNb() {
+    return this.data.getOrders().length;
+  }
 }
