@@ -22,8 +22,14 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-list>
-    <app-supplier *ngFor="let supplier of getSuppliers()" [supplier]="supplier"></app-supplier>
+    <app-supplier *ngFor="let supplier of items$ | async" [supplier]="supplier"></app-supplier>
   </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

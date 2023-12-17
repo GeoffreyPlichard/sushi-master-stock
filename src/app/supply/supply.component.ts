@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { DataService, SupplierID, Supply } from '../services/data.service';
+import { DataService, Supply } from '../services/data.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class SupplyComponent {
   private platform = inject(Platform);
   private data = inject(DataService);
   @Input() supply?: Supply;
-  @Input() supplierId?: SupplierID;
+  // @Input() supplierId?: SupplierID;
   isIos() {
     return this.platform.is('ios')
   }
@@ -25,11 +25,11 @@ export class SupplyComponent {
   }
 
   addOrder(supply?: Supply) {
-    if (supply && (this.supplierId !== undefined)) {
-        this.data.addOrder({
-            ...supply,
-            supplierId: this.supplierId
-        })
-    }
+    // if (supply && (this.supplierId !== undefined)) {
+    //     this.data.addOrder({
+    //         ...supply,
+    //         supplierId: this.supplierId
+    //     })
+    // }
   }
 }

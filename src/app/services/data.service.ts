@@ -1,22 +1,16 @@
-import { Injectable } from '@angular/core';
-
-export enum SupplierID {
-  LX_FRANCE = 0,
-  FOODEX_FROZEN = 1,
-  FOODEX_GROCERY = 2,
-  AGIS = 3,
-  AGF = 4,
-  UNIMEX = 5,
-  TTF = 6,
-  ROCHEX = 7
-}
+import { Injectable, inject } from '@angular/core';
+import { Firestore, collection, collectionData, doc, docData, DocumentReference, CollectionReference } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 export interface Supplier {
-  id: SupplierID;
   name: string;
   type: string;
   tel: string;
   email: string;
+}
+
+export interface SupplierWithID extends Supplier {
+  id: string;
 }
 
 export interface Supplies {
@@ -34,71 +28,14 @@ export interface Supply {
 }
 
 export interface IOrder extends Supply {
-  supplierId: SupplierID;
+  supplierId: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public suppliers: Supplier[] = [
-    {
-      id: SupplierID.LX_FRANCE,
-      name: 'LX France',
-      type: 'Epicerie',
-      tel: '0',
-      email: ''
-    },
-    {
-      id: SupplierID.FOODEX_FROZEN,
-      name: 'Foodex Surgelés',
-      type: 'Surgelés',
-      tel: '0',
-      email: ''
-    },
-    {
-      id: SupplierID.FOODEX_GROCERY,
-      name: 'Foodex Epicerie',
-      type: 'Epicerie',
-      tel: '0',
-      email: ''
-    },
-    {
-      id: SupplierID.AGIS,
-      name: 'AGIS',
-      type: 'Sauces / Nems',
-      tel: '0',
-      email: 'commande.tarare@agis-sa.fr'
-    },
-    {
-      id: SupplierID.AGF,
-      name: 'AGF',
-      type: 'Surgelés / Viandes',
-      tel: '01 56 20 19 04',
-      email: 'commande@asiageneralfood.com'
-    },
-    {
-      id: SupplierID.UNIMEX,
-      name: 'UNIMEX',
-      type: 'Barquettes / Etiquettes',
-      tel: '0',
-      email: ''
-    },
-    {
-      id: SupplierID.TTF,
-      name: 'TTF',
-      type: 'Epicerie',
-      tel: '0',
-      email: ''
-    },
-    {
-      id: SupplierID.ROCHEX,
-      name: 'Rochex',
-      type: 'Hygiène',
-      tel: '0',
-      email: ''
-    }
-  ];
+  firestore: Firestore = inject(Firestore)
 
   public supplies: Supplies = [
     [
@@ -339,12 +276,22 @@ export class DataService {
 
   constructor() { }
 
-  public getSuppliers(): Supplier[] {
-    return this.suppliers;
+  public getSupplierCollection(): CollectionReference {
+    return collection(this.firestore, 'Supplier');
   }
 
-  public getSupplierById(id: number): Supplier {
-    return this.suppliers[id];
+  public getSupplierDocument(id: string): DocumentReference {
+    return doc(this.firestore, 'Supplier', id);
+  }
+
+  public getSuppliers(): Observable<SupplierWithID[]> {
+    const suppliersCollection = this.getSupplierCollection();
+    return collectionData(suppliersCollection, { idField: 'id'}) as Observable<SupplierWithID[]>;
+  }
+
+  public getSupplierById(id: string): Observable<Supplier> {
+    const supplierDocument = this.getSupplierDocument(id);
+    return docData(supplierDocument) as Observable<Supplier>;
   }
 
   public getSupplies(): Supplies {

@@ -23,8 +23,8 @@ export class OrderPage {
     return this.data.getOrders();
   }
 
-  getSupplierById(id: number) {
-    return this.data.getSupplierById(id);
-  }
+  // getSupplierById(id: number) {
+  //   return this.data.getSupplierById(id);
+  // }
   
 }

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { SupplierComponentModule } from '../supplier/supplier.module';
+import { SupplierModalComponentModule } from '../modals/supplier-modal.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { SupplierComponentModule } from '../supplier/supplier.module';
     FormsModule,
     IonicModule,
     SupplierComponentModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SupplierModalComponentModule
   ],
   declarations: [HomePage]
 })
