@@ -1,8 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Platform } from '@ionic/angular';
-import { DataService, Supplier, Supply } from '../services/data.service';
-import { Observable } from 'rxjs';
+import { ModalController, Platform } from '@ionic/angular';
+import { DataService, Supplier, Supply, SupplyWithID } from '../services/data.service';
+import { map, Observable } from 'rxjs';
+import { SupplyModalComponent } from '../modals/supply-modal/supply-modal.component';
+import { addDoc, DocumentReference } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-view-supplier',
@@ -11,15 +13,26 @@ import { Observable } from 'rxjs';
 })
 export class ViewSupplierPage implements OnInit {
   public supplier$: Observable<Supplier>;
+  public items$: Observable<SupplyWithID[]>;
+  
   private data = inject(DataService);
   private activatedRoute = inject(ActivatedRoute);
   private platform = inject(Platform);
+  private modalCtrl = inject(ModalController);
+  private supplierId: string;
 
-  constructor() {}
+  constructor() {
+    this.supplierId = this.activatedRoute.snapshot.paramMap.get('id') as string;
+
+    this.items$ = this.data.getSupplies().pipe(
+      map(items => {
+        return items.filter(item => item.supplierId === this.supplierId)
+      })
+    )
+  }
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.supplier$ = this.data.getSupplierById(id);
+    this.supplier$ = this.data.getSupplierById(this.supplierId);
   }
 
   getBackButtonText() {
@@ -27,12 +40,26 @@ export class ViewSupplierPage implements OnInit {
     return isIos ? 'Inbox' : '';
   }
 
-  // getSupplies(): Supply[] {
-  //   return this.data.getSuppliesBySupplier(this.supplier.id);
-  // }
-
   getOrdersNb() {
     return this.data.getOrders().length;
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: SupplyModalComponent,
+      componentProps: {supplierId: this.supplierId}
+    });
+
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+        addDoc(this.data.getSupplyCollection(), <Supply> data.payload).then((documentReference: DocumentReference) => {
+          console.log('document created', documentReference);
+          // the documentReference provides access to the newly created document
+        });
+    }
   }
   
 }

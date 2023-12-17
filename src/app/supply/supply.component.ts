@@ -13,7 +13,7 @@ export class SupplyComponent {
   private platform = inject(Platform);
   private data = inject(DataService);
   @Input() supply?: Supply;
-  // @Input() supplierId?: SupplierID;
+
   isIos() {
     return this.platform.is('ios')
   }

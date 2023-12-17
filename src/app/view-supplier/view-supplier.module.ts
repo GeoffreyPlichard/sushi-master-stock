@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ViewSupplierPageRoutingModule } from './view-supplier-routing.module';
 import { SupplyComponentModule } from '../supply/supply.module';
+import { SupplyModalComponentModule } from '../modals/supply-modal/supply-modal.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { SupplyComponentModule } from '../supply/supply.module';
     FormsModule,
     IonicModule,
     ViewSupplierPageRoutingModule,
-    SupplyComponentModule
+    SupplyComponentModule,
+    SupplyModalComponentModule
   ],
   declarations: [ViewSupplierPage]
 })

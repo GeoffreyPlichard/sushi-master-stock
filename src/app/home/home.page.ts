@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { RefresherCustomEvent } from '@ionic/angular';
 import { DataService, Supplier, SupplierWithID } from '../services/data.service';
-import { Firestore, addDoc, updateDoc, DocumentReference } from '@angular/fire/firestore';
+import { Firestore, addDoc, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ModalController } from '@ionic/angular';
-import { SupplierModalComponent } from '../modals/supplier-modal.component';
+import { SupplierModalComponent } from '../modals/supplier-modal/supplier-modal.component';
 
 
 @Component({

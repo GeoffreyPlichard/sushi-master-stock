@@ -1,6 +1,6 @@
 <ion-list>
     <ion-item-sliding>
-        <ion-item *ngIf="supply" [routerLink]="'/supply/' + supply.id" [detail]="false">
+        <ion-item *ngIf="supply" [detail]="false">
             <div slot="start" [class]="supply.stock === 0 ? 'dot dot-unread' : 'dot'"></div>
             <ion-label class="ion-text-wrap">
                 <h3>

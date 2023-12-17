@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
-import { Supplier, SupplierWithID } from '../services/data.service';
+import { Supplier, SupplierWithID } from '../../services/data.service';
 
 
 export interface ISupplierModalReturn {
@@ -41,7 +41,7 @@ export class SupplierModalComponent implements OnInit {
   }
 
   confirm() {
-    let payload: SupplierWithID | Supplier = {
+    let payload: Supplier = {
       name: this.name,
       type: this.type,
       tel: this.tel,

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { SupplierComponentModule } from '../supplier/supplier.module';
-import { SupplierModalComponentModule } from '../modals/supplier-modal.module';
+import { SupplierModalComponentModule } from '../modals/supplier-modal/supplier-modal.module';
 
 @NgModule({
   imports: [

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core
 import { ModalController, ModalOptions, Platform } from '@ionic/angular';
 import { DataService, SupplierWithID } from '../services/data.service';
 import { deleteDoc, updateDoc } from '@angular/fire/firestore';
-import { SupplierModalComponent } from '../modals/supplier-modal.component';
+import { SupplierModalComponent } from '../modals/supplier-modal/supplier-modal.component';
 
 
 @Component({
