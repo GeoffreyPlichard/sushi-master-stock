@@ -297,6 +297,10 @@ export class DataService {
     return collection(this.firestore, 'Supply');
   }
 
+  public getSupplyDocument(id: string): DocumentReference {
+    return doc(this.firestore, 'Supply', id);
+  }
+
   public getSupplies(): Observable<SupplyWithID[]> {
     const supplyCollection = this.getSupplyCollection();
     return collectionData(supplyCollection, { idField: 'id'}) as Observable<SupplyWithID[]>;

@@ -19,7 +19,7 @@ export class ViewSupplierPage implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private platform = inject(Platform);
   private modalCtrl = inject(ModalController);
-  private supplierId: string;
+  public supplierId: string;
 
   constructor() {
     this.supplierId = this.activatedRoute.snapshot.paramMap.get('id') as string;
