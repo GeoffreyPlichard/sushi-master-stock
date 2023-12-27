@@ -72,5 +72,3 @@ Thumbs.db
 *-debug.log
 .runtimeconfig.json
 
-# Keys
-src/environments/keys.ts
