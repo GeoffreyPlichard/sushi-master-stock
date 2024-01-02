@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RefresherCustomEvent } from '@ionic/angular';
-import { DataService, Supplier, SupplierWithID } from '../services/data.service';
-import { Firestore, addDoc, DocumentReference } from '@angular/fire/firestore';
+import { DataService, Supplier, SupplierWithID, SupplyWithID } from '../services/data.service';
+import { addDoc, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { SupplierModalComponent } from '../modals/supplier-modal/supplier-modal.component';
@@ -13,22 +13,20 @@ import { SupplierModalComponent } from '../modals/supplier-modal/supplier-modal.
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public items$: Observable<SupplierWithID[]>;
+  public orders$: Observable<SupplyWithID[]>;
+
   private data = inject(DataService);
-  firestore: Firestore = inject(Firestore)
-  items$: Observable<SupplierWithID[]>;
 
   constructor(private modalCtrl: ModalController) {
     this.items$ = this.data.getSuppliers();
+    this.orders$ = this.data.getOrders();
   }
 
   refresh(ev: any) {
     setTimeout(() => {
       (ev as RefresherCustomEvent).detail.complete();
     }, 3000);
-  }
-
-  getOrdersNb() {
-    //return this.data.getOrders().length;
   }
 
   async openModal() {

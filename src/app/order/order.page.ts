@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { DataService, SupplierWithID, SupplyWithID } from '../services/data.service';
+import { deleteDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-order',
@@ -34,5 +35,10 @@ export class OrderPage {
   getBackButtonText() {
     const isIos = this.platform.is('ios')
     return isIos ? 'Inbox' : '';
+  }
+
+  remove(order: SupplyWithID) {
+    const ref = this.data.getOrderDocument(order.id);
+    deleteDoc(ref);
   }
 }
