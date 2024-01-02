@@ -28,7 +28,7 @@ export class HomePage {
   }
 
   getOrdersNb() {
-    return this.data.getOrders().length;
+    //return this.data.getOrders().length;
   }
 
   async openModal() {

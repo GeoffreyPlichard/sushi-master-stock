@@ -9,11 +9,20 @@
   
   <ion-content [fullscreen]="true">
     <div class="ion-padding">
-      <ul>
-        <!-- <li *ngFor="let order of getOrders()">
-            <strong>{{getSupplierById(order.supplierId).name}}: </strong>{{order.name}}
-        </li> -->
-      </ul>
+      <ion-accordion-group>
+        <ion-accordion value="groupedOrder.key" *ngFor="let groupedOrder of groupedOrders | keyvalue">
+          <ion-item slot="header" color="light">
+            <ion-label>{{groupedOrder.key | suppliername:suppliers}}</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ul>
+              <li *ngFor="let order of groupedOrder.value">
+                {{order.name}}
+              </li>
+            </ul>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
     </div>
   </ion-content>
   

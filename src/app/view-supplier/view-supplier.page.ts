@@ -14,6 +14,7 @@ import { addDoc, DocumentReference } from '@angular/fire/firestore';
 export class ViewSupplierPage implements OnInit {
   public supplier$: Observable<Supplier>;
   public items$: Observable<SupplyWithID[]>;
+  public orders$: Observable<SupplyWithID[]>;
   
   private data = inject(DataService);
   private activatedRoute = inject(ActivatedRoute);
@@ -33,15 +34,12 @@ export class ViewSupplierPage implements OnInit {
 
   ngOnInit() {
     this.supplier$ = this.data.getSupplierById(this.supplierId);
+    this.orders$ = this.data.getOrders();
   }
 
   getBackButtonText() {
     const isIos = this.platform.is('ios')
     return isIos ? 'Inbox' : '';
-  }
-
-  getOrdersNb() {
-    return this.data.getOrders().length;
   }
 
   async openModal() {

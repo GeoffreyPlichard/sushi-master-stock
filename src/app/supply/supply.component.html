@@ -18,8 +18,15 @@
         </ion-item>
 
         <ion-item-options side="start">
-            <ion-item-option color="danger" (click)="delete()">
-                <ion-icon name="close-outline"></ion-icon>
+            <ion-item-option color="danger">
+                <ion-icon id="delete-supply-alert" name="close-outline"></ion-icon>
+                <ion-alert
+                trigger="delete-supply-alert"
+                header="Supprimer"
+                message="Etes vous sûr de vouloir supprimer ?"
+                [buttons]="alertButtons"
+                (didDismiss)="setResult($event)"
+                ></ion-alert>
             </ion-item-option>
             <ion-item-option color="danger" (click)="edit()">
               <ion-icon name="create-outline"></ion-icon>

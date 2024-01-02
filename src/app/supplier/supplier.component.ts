@@ -18,16 +18,33 @@ export class SupplierComponent {
   private data = inject(DataService);
   private modalCtrl = inject(ModalController)
 
+  public alertButtons = [
+    {
+      text: 'Annuler',
+      role: 'cancel',
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.delete();
+      },
+    },
+  ];
+
   isIos() {
     return this.platform.is('ios')
   }
-
+  
   delete() {
     if (this.supplier) {
       const ref = this.data.getSupplierDocument(this.supplier.id);
       deleteDoc(ref);
-
     }
+  }
+
+  setResult(ev: any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
   edit() {

@@ -6,7 +6,7 @@
     {{ (supplier$ | async)?.name }}
     <ion-button slot="end" [routerLink]="'/order/'">
       <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-      <ion-badge slot="start">{{getOrdersNb()}}</ion-badge>
+      <ion-badge slot="start">{{(orders$ | async)?.length}}</ion-badge>
     </ion-button>
   </ion-toolbar>
 </ion-header>

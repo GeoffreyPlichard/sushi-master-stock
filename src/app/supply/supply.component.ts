@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
-import { DataService, Supply } from '../services/data.service';
+import { DataService, Supply, SupplyWithID } from '../services/data.service';
 import { SupplyModalComponent } from '../modals/supply-modal/supply-modal.component';
-import { updateDoc } from '@angular/fire/firestore';
+import { addDoc, deleteDoc, DocumentReference, updateDoc } from '@angular/fire/firestore';
 
 
 @Component({
@@ -12,12 +12,26 @@ import { updateDoc } from '@angular/fire/firestore';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplyComponent {
-  @Input() supply?: Supply;
+  @Input() supply?: SupplyWithID;
   @Input() supplierId?: string;
 
   private platform = inject(Platform);
   private data = inject(DataService);
   private modalCtrl = inject(ModalController)
+
+  public alertButtons = [
+    {
+      text: 'Annuler',
+      role: 'cancel',
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        this.delete();
+      },
+    },
+  ];
 
   isIos() {
     return this.platform.is('ios')
@@ -30,7 +44,14 @@ export class SupplyComponent {
   }
 
   delete() {
+    if (this.supply) {
+      const ref = this.data.getSupplyDocument(this.supply.id);
+      deleteDoc(ref);
+    }
+  }
 
+  setResult(ev: any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
   edit() {
@@ -55,11 +76,9 @@ export class SupplyComponent {
   }
 
   addOrder(supply?: Supply) {
-    // if (supply && (this.supplierId !== undefined)) {
-    //     this.data.addOrder({
-    //         ...supply,
-    //         supplierId: this.supplierId
-    //     })
-    // }
+    addDoc(this.data.getOrderCollection(), <SupplyWithID> supply).then((documentReference: DocumentReference) => {
+      console.log('document created', documentReference);
+      // the documentReference provides access to the newly created document
+    });
   }
 }
