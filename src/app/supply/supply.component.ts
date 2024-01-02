@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
-import { DataService, Supply, SupplyWithID } from '../services/data.service';
+import { DataService, Order, Supply, SupplyWithID } from '../services/data.service';
 import { SupplyModalComponent } from '../modals/supply-modal/supply-modal.component';
 import { addDoc, deleteDoc, DocumentReference, updateDoc } from '@angular/fire/firestore';
 
@@ -12,7 +12,7 @@ import { addDoc, deleteDoc, DocumentReference, updateDoc } from '@angular/fire/f
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplyComponent {
-  @Input() supply?: SupplyWithID;
+  @Input() supply: SupplyWithID;
   @Input() supplierId?: string;
 
   private platform = inject(Platform);
@@ -75,8 +75,14 @@ export class SupplyComponent {
     }
   }
 
-  addOrder(supply?: Supply) {
-    addDoc(this.data.getOrderCollection(), <SupplyWithID> supply).then((documentReference: DocumentReference) => {
+  addOrder(supply: SupplyWithID) {
+    const order: Order = {
+      ...supply,
+      isShipping: false,
+      supplyId: supply.id
+    };
+    
+    addDoc(this.data.getOrderCollection(), <Order> order).then((documentReference: DocumentReference) => {
       console.log('document created', documentReference);
       // the documentReference provides access to the newly created document
     });

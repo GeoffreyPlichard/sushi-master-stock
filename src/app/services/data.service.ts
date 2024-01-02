@@ -26,6 +26,11 @@ export interface SupplyWithID extends Supply {
   id: string;
 }
 
+export interface Order extends SupplyWithID {
+  isShipping: boolean;
+  supplyId: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -71,8 +76,8 @@ export class DataService {
     return doc(this.firestore, 'Order', id);
   }
 
-  public getOrders(): Observable<SupplyWithID[]> {
+  public getOrders(): Observable<Order[]> {
     const ordersCollection = this.getOrderCollection();
-    return collectionData(ordersCollection, { idField: 'id'}) as Observable<SupplyWithID[]>;
+    return collectionData(ordersCollection, { idField: 'id'}) as Observable<Order[]>;
   }
 }

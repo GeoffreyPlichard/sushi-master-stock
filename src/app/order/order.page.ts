@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { DataService, SupplierWithID, SupplyWithID } from '../services/data.service';
-import { deleteDoc } from '@angular/fire/firestore';
+import { DataService, Order, SupplierWithID, Supply, SupplyWithID } from '../services/data.service';
+import { deleteDoc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-order',
@@ -10,7 +10,7 @@ import { deleteDoc } from '@angular/fire/firestore';
 })
 export class OrderPage {
   public groupedOrders: {
-    [key: string]: SupplyWithID[]
+    [key: string]: Order[]
   };
   public suppliers: SupplierWithID[];
   
@@ -37,8 +37,34 @@ export class OrderPage {
     return isIos ? 'Inbox' : '';
   }
 
-  remove(order: SupplyWithID) {
+  remove(order: Order) {
     const ref = this.data.getOrderDocument(order.id);
     deleteDoc(ref);
+  }
+
+  send(order: Order) {
+    const payload = {
+      ...order,
+      isShipping: true
+    };
+
+    if (order) {
+      updateDoc(this.data.getOrderDocument(order.id), payload);
+    }
+  }
+
+  addStock(order: Order) {
+    const updatedSupply = {
+      reference: order.reference,
+      name: order.name,
+      upet: order.upet,
+      min_price: order.min_price,
+      stock: order.stock + 1,
+      supplierId: order.supplierId
+    }
+
+    updateDoc(this.data.getSupplyDocument(order.supplyId), updatedSupply).then(() => {
+      this.remove(order);
+    });
   }
 }
