@@ -7,6 +7,9 @@
       <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
       <ion-badge slot="start">{{(orders$ | async)?.length}}</ion-badge>
     </ion-button>
+    <ion-button slot="end" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 

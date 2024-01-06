@@ -5,6 +5,7 @@ import { addDoc, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { SupplierModalComponent } from '../modals/supplier-modal/supplier-modal.component';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class HomePage {
   public orders$: Observable<SupplyWithID[]>;
 
   private data = inject(DataService);
+  public auth = inject(AuthService)
 
   constructor(private modalCtrl: ModalController) {
     this.items$ = this.data.getSuppliers();
@@ -43,5 +45,10 @@ export class HomePage {
           // the documentReference provides access to the newly created document
         });
     }
+  }
+
+  logout() {
+    console.log('logout')
+    this.auth.logout();
   }
 }
